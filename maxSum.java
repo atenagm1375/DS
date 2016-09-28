@@ -7,8 +7,8 @@ class maxSum
 		int n, max, start, end;
 		n = 8;
 		int[] set = {-2, -3, 4, -1, -2, 1, 5, -3};
-		maxSubSeqSum Ms = new maxSubSeqSum();
-		max = Ms.findMax(set, 0, 0);
+		maxSubSeqSum Ms = new maxSubSeqSum(n, set);
+		max = Ms.maxSubArraySum(0, n - 1);
 		start = Ms.getStart();
 		end = Ms.getEnd();
 		for(int i = start; i<=end; i++)
@@ -17,40 +17,67 @@ class maxSum
 }
 class maxSubSeqSum
 {
+	private int n;
+	private int[] array;
 	private int start;
 	private int end;
-	private Scanner scan;
-	maxSubSeqSum(){}
-	public int findMax(int[] A, int max, int i)
-	{
-		if(i==A.length)
-			return max;
-		else{
-			int Sum = 0;
-			max = maximum(A, max, i, i, Sum);
-			return findMax(A, max, i+1);
-		}
+	
+	maxSubSeqSum(int n, int []A){
+		this. n = n;
+		array = new int[n];
+		array = A;
 	}
-	public int maximum(int[] A, int max, int i, int j, int Sum)
-	{
-		if(j==A.length)
-			return max;
-		else{
-			Sum+=A[j];
-			if(Sum>max){
-				max = Sum;
-				start = i;
-				end = j;
-			}
-			return maximum(A, max, i, j+1, Sum);
-		}
-	}
-	public int getStart()
-	{
+	
+	public int getStart(){
 		return start;
 	}
-	public int getEnd()
-	{
+
+	public int getEnd(){
 		return end;
+	}
+
+	public int maxSubArrayMiddle(int l, int m, int h){
+		int sum = 0;
+		int leftSum = Integer.MIN_VALUE;
+		for(int i = m; i >= l; i--){
+			sum += array[i];
+			if(sum > leftSum){
+				leftSum = sum;
+				start = i;
+			}
+		}
+		sum = 0;
+		int rightSum = Integer.MIN_VALUE;
+		for(int i = h; i > m; i++){
+			sum += array[i];
+			if(sum > rightSum){
+				rightSum = sum;
+				end = i;
+			}
+		}
+		return leftSum + rightSum;
+	}
+
+	int maxSubArraySum(int l, int h){
+		if(l == h)
+			return array[l];
+		else{
+			int m = (l + h) / 2;
+			int left = maxSubArraySum(l, m);
+			int right = maxSubArraySum(m + 1, h);
+			int center = maxSubArrayMiddle(l, m, h);
+			int max = center;
+			if(right > max){
+				max = right;
+				start = m + 1;
+				end = h;
+			}
+			if(left > max){
+				max = center;
+				start = l;
+				end = m;
+			}
+			return max;
+		}
 	}
 }
