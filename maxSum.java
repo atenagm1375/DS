@@ -1,17 +1,21 @@
 //Ashena Gorgan Mohammadi, 610394128
+
 import java.util.Scanner;
+
 class maxSum
 {
 	public static void main(String[] args)
 	{
-		int n, max, start, end;
+		int n, start, end;
 		n = 8;
 		int[] set = {-2, -3, 4, -1, -2, 1, 5, -3};
 		maxSubSeqSum Ms = new maxSubSeqSum(n, set);
+		int []max = new int[3];
 		max = Ms.maxSubArraySum(0, n - 1);
-		start = Ms.getStart();
-		end = Ms.getEnd();
-		for(int i = start; i<=end; i++)
+		//start = Ms.getStart();
+		//end = Ms.getEnd();
+		System.out.println(max[0]);
+		for(int i = max[1]; i <= max[2]; i++)
 			System.out.print(set[i]+" ");
 	}
 }
@@ -21,9 +25,10 @@ class maxSubSeqSum
 	private int[] array;
 	private int start;
 	private int end;
+	private int s, e;
 	
 	maxSubSeqSum(int n, int []A){
-		this. n = n;
+		this.n = n;
 		array = new int[n];
 		array = A;
 	}
@@ -43,39 +48,47 @@ class maxSubSeqSum
 			sum += array[i];
 			if(sum > leftSum){
 				leftSum = sum;
-				start = i;
+				s = i;
 			}
 		}
 		sum = 0;
 		int rightSum = Integer.MIN_VALUE;
-		for(int i = h; i > m; i++){
+		for(int i = m + 1; i <= h; i++){
 			sum += array[i];
 			if(sum > rightSum){
 				rightSum = sum;
-				end = i;
+				e = i;
 			}
 		}
 		return leftSum + rightSum;
 	}
 
-	int maxSubArraySum(int l, int h){
-		if(l == h)
-			return array[l];
+	int []maxSubArraySum(int l, int h){
+		int[] max = new int[3];
+		if(l == h){
+			max[0] = array[l];
+			max[1] = max[2] = l;
+			return max;
+		}
 		else{
 			int m = (l + h) / 2;
-			int left = maxSubArraySum(l, m);
-			int right = maxSubArraySum(m + 1, h);
-			int center = maxSubArrayMiddle(l, m, h);
-			int max = center;
-			if(right > max){
-				max = right;
-				start = m + 1;
-				end = h;
+			int []left = new int[3];
+			left = maxSubArraySum(l, m);
+			int []right = new int[3];
+			right = maxSubArraySum(m + 1, h);
+			if(left[0] > right[0]){
+				for(int i = 0; i < 3; i++)
+					max[i] = left[i];
 			}
-			if(left > max){
-				max = center;
-				start = l;
-				end = m;
+			else{
+				for(int i = 0; i < 3; i++)
+					max[i] = right[i];
+			}
+			int center = maxSubArrayMiddle(l, m, h);
+			if(center > max[0]){
+				max[0] = center;
+				max[1] = s;
+				max[2] = e;
 			}
 			return max;
 		}
