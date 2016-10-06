@@ -14,6 +14,7 @@ vector< vector<int> > sparseMatrix_mult(int **A, int **B){
     ans.push_back(ans_0);
     int x = 0, y = 0;
     while(x < A[0][0]){
+        y = 0;
         while(y < B[0][1]){
             int sum = 0;
             for(int i = 1; x == A[i][0]; i++){
