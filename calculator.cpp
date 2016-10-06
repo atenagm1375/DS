@@ -47,7 +47,8 @@ int evaluate_expresion(string exp){
         string str = "";
         while(exp[i] >= '0' && exp[i] <= '9')
             str += exp[i++];
-        operands.push(atoi(str.c_str()));
+        if(str != "")
+            operands.push(atoi(str.c_str()));
         if(operators.empty())
             operators.push(exp[i]);
         else if(exp[i] == '(')
@@ -64,6 +65,7 @@ int evaluate_expresion(string exp){
                 evaluate(&operands, &operators);
             operators.push(exp[i]);
         }
+        //cout << "operand: " << operands.top() << endl;
     }
     return operands.top();
 }
