@@ -1,5 +1,13 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program evaluates whether the number of 0s and 1s in a binary string
+ * are equal or not using a stack. The algorithm works as follows:
+ * each time, if stack is empty, the character is pushed into the stack; otherwise, if 
+ * the pointed character is different from the top of the stack, we pop an element from
+ * the stack; elsewhere, we push the element into the stack. If stack is empty at the end,
+ * then the number of 0s and 1s are equal
+ */
+
 #include <iostream>
 #include <string>
 #include <stack>

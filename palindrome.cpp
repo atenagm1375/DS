@@ -1,5 +1,10 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program evaluates whether a string is palindrome or not using a stack.
+ * The characters of the string are put in stack. In each pop phase, the character
+ * is compared with the first character of the string.
+ */
+
 #include <iostream>
 #include <string>
 #include <stack>

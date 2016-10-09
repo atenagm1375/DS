@@ -1,5 +1,12 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program is to calculate a mathematical string by traversing the string
+ * only once. There will be two stacks; one for operators and one for operands.
+ * In each step, the result is calculated based on infix-to-postfix algorithm
+ * and the result is added to the stack of operands. The last remaining in the
+ * stack of operands will be the result.
+ */
+
 #include <iostream>
 #include <string>
 #include <stack>

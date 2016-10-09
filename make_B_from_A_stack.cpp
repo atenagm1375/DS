@@ -1,5 +1,10 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* Using a stack, we want to understand if the second string can be made from
+ * the first one or not. Since the letters are distinct, in each stage, by checking
+ * equality of the top of the stack and the pointer of the second string, we can 
+ * realise whether we can make it or not*/
+
 #include <iostream>
 #include <string>
 #include <stack>
