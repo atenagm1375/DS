@@ -1,8 +1,20 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program is to represent algorithms which calculate summation and multiplication
+ * of polynomials in two methods of their implementation. "sum1" and "multiply1" calculate
+ * the summation and multiplication of polynomials in their first implementation while
+ * "sum2" and "multiply2" calculate the result for the second implementation
+ */
+
 #include <iostream>
 
 int *sum1(int *A, int *B){
+
+    /* Traversing the elements of the arrays from last to first, we add up the multipliers
+     * and when we reach the begining of one array, the elements of the other one should be
+     * copied in array of answer
+     */
+
     int m = A[0] + 1, n = B[0] + 1;
     int i = m > n ? m : n;
     int *ans = new int[i + 1];
@@ -22,6 +34,12 @@ int *sum1(int *A, int *B){
 }
 
 int *multiply1(int *A, int *B){
+
+    /* Think of i as a pointer moving on the first array and j as a pointer on
+     * on the second array. The index i+j-1 of the answer will contain the multiplication
+     * of the two arrays
+     */
+
     int m = A[0] + 1, n = B[0] + 1;
     int *ans = new int[m + n];
     for(int i = 0; i < m + n; i++)
@@ -34,6 +52,12 @@ int *multiply1(int *A, int *B){
 }
 
 int *sum2(int *A, int *B){
+
+    /* Traversing the two arrays, two indices will be added up if and only if they
+     * are equal. So we continue searching for the ones that are equal and add up their
+     * multipliers
+     */
+
     int m = A[0], n = B[0];
     int len = A[1] > B[1] ? A[1] : B[1];
     int *ans = new int[2 * len + 1];
@@ -66,6 +90,12 @@ int *sum2(int *A, int *B){
 }
 
 int *multiply2(int *A, int *B){
+
+    /* There is no better way than multiplying the two arrays and sorting them
+     * in descending order. In each phase of multiplication, the previously calculated
+     * powers will be checked for repeated ones.
+     */
+
     int *max = new int[2 * A[0] * B[0]];
     int k = 0;
     for(int i = 1; i < A[0] * 2; i += 2){
