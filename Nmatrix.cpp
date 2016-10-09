@@ -1,5 +1,10 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program is to represent another data structure for keeping and accessing
+ * elements of an N-matrix. Putting them in an array with the order up-left to
+ * down-left, up-left to down-right, up-right to down-right.
+ */
+
 #include <iostream>
 
 using namespace std;

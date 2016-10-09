@@ -1,5 +1,10 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program is to evaluate whether a matrix is monge or not. A matrix
+ * is monge if each 2*2 submatrices are monge. This is the simple algorithm
+ * we follow in this program
+ */
+
 #include <iostream>
 
 using namespace std;

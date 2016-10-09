@@ -1,7 +1,7 @@
 // Ashena Gorgan Mohammadi, 610394128
 
 /* The implementation of magic square for odd numbers
- * */
+ */
 
 #include <iostream>
 

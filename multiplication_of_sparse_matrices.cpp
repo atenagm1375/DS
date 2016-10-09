@@ -1,5 +1,12 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program is to calculate the multiplication of two sparse matrices implemented
+ * as a list with 3 rows. The result is sparse if and only if more than a half of the
+ * result matrix is made up of 0s. The Algorithm follows as this:
+ * It iterates over the elements of the first matrix and the second one and multiply
+ * them with the basic multiplication algorithm for matrices.
+ */
+
 #include <iostream>
 #include <vector>
 

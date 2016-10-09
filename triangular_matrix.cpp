@@ -1,5 +1,10 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This is program is to implement a data structure for implementing
+ * elements of a triangular matrix. They are stored in the order of up-left to
+ * down-right in an array
+ */
+
 #include <iostream>
 
 using namespace std;

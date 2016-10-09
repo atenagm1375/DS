@@ -1,5 +1,10 @@
 //Ashena Gorgan Mohammadi, 610394128
 
+/* This program is to calculate the maximum summation of a subarray. It recursively
+ * divides the array into halves and calculates the maximum summation for left, right,
+ * and center and find the maximum between the three values.
+ */
+
 import java.util.Scanner;
 
 class maxSum

@@ -3,7 +3,7 @@
 /* There is an array A with n elements. change the order of elements in A
  * such that all elements less than or equal to a given k appear before the
  * elements bigger than k.
- * */
+ */
 
 #include <iostream>
 

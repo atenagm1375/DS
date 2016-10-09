@@ -1,5 +1,11 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program is to merge two or three sorted arrays. "merge2" is the function for
+ * merging 2 arrays and "merge3" is the one for merging 3 arrays. The same algorithm
+ * applies for both. Each array will hve a pointer. In each step, the minimum value
+ * for the pointed elements of the arrays will be copied into the array of answer.
+ */
+
 #include <iostream>
 
 using namespace std;

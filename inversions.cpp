@@ -1,5 +1,9 @@
 // Ashena Gorgan Mohammadi, 610394128
 
+/* This program is to count the inversions of an array. Using merge sort,
+ * in each step of merge sort, we can count the inversions.
+ */
+
 #include <iostream>
 
 using namespace std;
