@@ -65,6 +65,43 @@ int *sum2(int *A, int *B){
     return result;
 }
 
+int *multiply2(int *A, int *B){
+    int *max = new int[2 * A[0] * B[0]];
+    int k = 0;
+    for(int i = 1; i < A[0] * 2; i += 2){
+        int counter = 0;
+        for(int j = 1; j < B[0] * 2; j += 2){
+            int l = 0;
+            for(; l < k; l += 2)
+                if(A[i] + B[j] == max[l]){
+                    max[l + 1] += (A[i + 1] * B[j + 1]);
+                    break;
+                }
+            if(l >= k){
+                max[k++] = A[i] + B[j];
+                max[k++] = A[i + 1] * B[j + 1];       
+            }
+        }
+    }
+    int *ans = new int[k + 1];
+    for(int i = 0; i < k; i++)
+        ans[i + 1] = max[i];
+    ans[0] = k / 2;
+    for(int i = 1; i < k; i += 2){
+        for(int j = i + 2; j < k + 1; j += 2){
+            if(ans[i] < ans[j]){
+                int a = ans[i];
+                int b = ans[i + 1];
+                ans[i] = ans[j];
+                ans[i + 1] = ans[j + 1];
+                ans[j] = a;
+                ans[j + 1] = b;
+            }
+        }
+    }
+    return ans;
+}
+
 int main(){
     int A1[6] = {4, 4, -3, 2, 0, -11};
     int B1[8] = {6, 1, 0, 0, 4, -5, 10, 6};
@@ -80,6 +117,10 @@ int main(){
     int A2[11] = {5, 10, -5, 8, -1, 7, 3, 4, 2, 0, 4};
     int B2[13] = {6, 5, -1, 4, 3, 3, 2, 2, 3, 1, 2, 0, -2};
     ans = sum2(A2, B2);
+    for(int i = 0; i <= 2 * ans[0]; i++)
+        std::cout << ans[i] << " ";
+    std::cout << std::endl;
+    ans = multiply2(A2, B2);
     for(int i = 0; i <= 2 * ans[0]; i++)
         std::cout << ans[i] << " ";
     return 0;
