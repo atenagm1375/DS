@@ -26,7 +26,7 @@ class Nmatrix{
         int operator()(int i, int j){
             if(j == 0)
                 return n_matrix[i + 1];
-            if(i == j)
+            if(i == j && i != n_matrix[0] - 1)
                 return n_matrix[n_matrix[0] + i];
             if(j == n_matrix[0] - 1)
                 return n_matrix[2 * n_matrix[0] + i - 1];
@@ -35,6 +35,20 @@ class Nmatrix{
         }
 
         void print(){
+        	for(int i = 0; i < n_matrix[0]; i++){
+        		for(int j = 0; j < n_matrix[0]; j++){
+        			if(j == 0)
+        				cout << n_matrix[i + 1] << " ";
+        			else if(i == j && i != n_matrix[0] - 1)
+        				cout << n_matrix[i + n_matrix[0]] << " ";
+        			else if(j == n_matrix[0] - 1)
+        				cout << n_matrix[i + 2 * n_matrix[0] - 1] << " ";
+        			else
+        				cout << 0 << " ";
+        		}
+        		cout << endl;
+        	}
+        	cout << "The array is:" << endl;
             for(int i = 0; i < 3 * n_matrix[0] - 1; i++)
                 cout << n_matrix[i] << " ";
             cout << endl;
@@ -46,17 +60,16 @@ class Nmatrix{
 };
 
 int main(){
-    int **M = new int *[5];
-    for(int i = 0; i < 5; i++)
-        M[i] = new int[5];
-    for(int i = 0; i < 5; i++){
-        M[i][0] = i + 1;
-        M[i][4] = i + 6;
-    }
-    for(int i = 1; i < 4; i++)
-        M[i][i] = i + 11;
-    Nmatrix matrix(M, 5);
+	int n;
+	cin >> n;
+    int **M = new int *[n];
+    for(int i = 0; i < n; i++)
+        M[i] = new int[n];
+    for(int i = 0; i < n; i++)
+    	for(int j = 0; j < n; j++)
+    		cin >> M[i][j];
+   	cout << endl;
+    Nmatrix matrix(M, n);
     matrix.print();
-    cout << matrix(4, 4) << " " << matrix(2, 1) << endl;
     return 0;
 }
