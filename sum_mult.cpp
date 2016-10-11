@@ -7,6 +7,9 @@
  */
 
 #include <iostream>
+#include <algorithm>
+
+using namespace std;
 
 int *sum1(int *A, int *B){
 
@@ -57,24 +60,22 @@ int *sum2(int *A, int *B){
      * are equal. So we continue searching for the ones that are equal and add up their
      * multipliers
      */
-
+     
     int m = A[0], n = B[0];
-    int len = A[1] > B[1] ? A[1] : B[1];
-    int *ans = new int[2 * len + 1];
-    int i = 1, j = 1, k = 1, counter = 0;
+    int len = 2 * max(m, n) + 1;
+    int *ans = new int[len];
+    ans[0] = (len - 1) / 2;
+    int i = 1, j = 1, k = 1;
     while(true){
         while(A[i] > B[j] || (i < 2 * m && j >= 2 * n)){
-            counter++;
             ans[k++] = A[i++];
             ans[k++] = A[i++];
         }
         while(B[j] > A[i] || (j < 2 * n && i >= 2 * m)){
-            counter++;
             ans[k++] = B[j++];
             ans[k++] = B[j++];
         }
         while(i < 2 * m && j < 2 * n && A[i] == B[j]){
-            counter++;
             ans[k++] = A[i++];
             ans[k++] = A[i++] + B[++j];
             j++;
@@ -82,11 +83,7 @@ int *sum2(int *A, int *B){
         if(i >= 2 * m && j >= 2 * n)
             break;
     }
-    int *result = new int[2 * counter + 1];
-    result[0] = counter;
-    for(int x = 1; x <= 2 * counter; x++)
-        result[x] = ans[x];
-    return result;
+    return ans;
 }
 
 int *multiply2(int *A, int *B){
@@ -133,25 +130,25 @@ int *multiply2(int *A, int *B){
 }
 
 int main(){
-    int A1[6] = {4, 4, -3, 2, 0, -11};
-    int B1[8] = {6, 1, 0, 0, 4, -5, 10, 6};
+    int A1[4] = {2, 1, 1, 1};
+    int B1[4] = {2, 1, 1, 1};
     int *ans = sum1(A1, B1);
-    for(int i = 0; i < 8; i++)
-        std::cout << ans[i] << " ";
-    std::cout << std::endl;
+    for(int i = 0; i < ans[0] + 2; i++)
+        cout << ans[i] << " ";
+    cout << endl;
     ans = multiply1(A1, B1);
-    for(int i = 0; i < 12; i++)
-        std::cout << ans[i] << " ";
-    std::cout << std::endl;
+    for(int i = 0; i < ans[0] + 2; i++)
+        cout << ans[i] << " ";
+    cout << endl;
 
-    int A2[11] = {5, 10, -5, 8, -1, 7, 3, 4, 2, 0, 4};
-    int B2[13] = {6, 5, -1, 4, 3, 3, 2, 2, 3, 1, 2, 0, -2};
+    int A2[7] = {3, 2, 1, 1, 1, 0, 1};
+    int B2[7] = {3, 2, 1, 1, 1, 0, 1};
     ans = sum2(A2, B2);
     for(int i = 0; i <= 2 * ans[0]; i++)
-        std::cout << ans[i] << " ";
-    std::cout << std::endl;
+        cout << ans[i] << " ";
+    cout << endl;
     ans = multiply2(A2, B2);
     for(int i = 0; i <= 2 * ans[0]; i++)
-        std::cout << ans[i] << " ";
+        cout << ans[i] << " ";
     return 0;
 }
