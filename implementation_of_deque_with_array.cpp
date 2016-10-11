@@ -14,21 +14,25 @@ template<class T> class Deque{
         Deque(int l){
             max_length = l;
             deque = new T[max_length];
-            head = tail = -1;
+            head = tail = 0;
         }
 
         void insertFront(T& val){
             //cout << "INSERT FRONT:" << endl;
             //cout << head << " " << tail << endl;
-            if(head == 0)
+            int i = head;
+            if(head < 0){
                 head = max_length - 1;
+                tail++;
+                i = 0;
+            }
             else
                 head--;
             if(head == tail){
                 cout << "Deque is full" << endl;
                 return;
             }
-            deque[head + 1] = val;
+            deque[i] = val;
             //cout << head << " " << tail << endl;
         }
 
