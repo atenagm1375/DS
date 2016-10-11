@@ -1,0 +1,8 @@
+Take A as an n-dimentional array:
+
+A(i_1, i_2, ..., i_r) = OA + [(i_1 - 1) * n_2 * ... * n_r] * L + [(i_2 - 1) * n_3 * ... * n_r] * L
++ ... + (i_r - 1) * L = OA + ∑(i_k * ∏(n_k+1) * L) - ∑(∏(n_k+1) * L)
+
+So:
+
+Virtual Base = OA - ∑(∏(n_k+1) * L)
