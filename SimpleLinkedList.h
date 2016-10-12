@@ -14,27 +14,27 @@ template <class T> class SimpleLinkedList{
             length = 0;
         }
 
-        void insertFirst(T& val){
+        void insertFirst(T val){
             Node<T> *node = getNode(val);
             node->link = head;
             head = node;
             length++;
         }
 
-        void insertLast(T& val){
+        void insertLast(T val){
             if(empty()){
                 insertFirst(val);
                 return;
             }
             Node<T> *node = head;
-            while(node->next != 0)
+            while(node->link != 0)
                 node = node->link;
             Node<T> *newNode = getNode(val);
             node->link = newNode;
             length++;
         }
 
-        void insert(T& prev, T& val){
+        void insert(T prev, T val){
             Node<T> *node = head;
             while(node->getData() != prev)
                 node = node->link;
@@ -69,7 +69,7 @@ template <class T> class SimpleLinkedList{
             return true;
         }
 
-        bool remove(T& val){
+        bool remove(T val){
             if(empty())
                 return false;
             if(length == 1){
@@ -96,8 +96,12 @@ template <class T> class SimpleLinkedList{
             return length;
         }
 
-        Node<T> getHead(){
+        Node<T> *getHead(){
             return head;
+        }
+
+        void setHead(Node<T> *h){
+            head = h;
         }
 
         private:

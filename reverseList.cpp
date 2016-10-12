@@ -31,9 +31,10 @@ template<class T> void reverseList(SimpleLinkedList<T>& list){
 int main(){
     SimpleLinkedList<int> list;
     int i;
-    cout << "Enter integers of the list(ctrl+D for finish):"
+    cout << "Enter integers of the list(ctrl+D for finish):";
     while(cin >> i)
         list.insertLast(i);
+    cout << endl;
     reverseList(list);
     Node<int> *node = list.getHead();
     while(node != 0){

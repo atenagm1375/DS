@@ -19,6 +19,10 @@ template <class T> class Node{
         T getData() const{
             return data;
         }
+        
+        void setData(T val){
+        	data = val;
+        }
 
         Node<T> *link;
 
