@@ -69,21 +69,20 @@ template <class T> class SimpleLinkedList{
             return true;
         }
 
-        bool remove(T val){
+        bool remove(Node<T> *n){
             if(empty())
                 return false;
             if(length == 1){
-                if(head->getData() == val)
+                if(head->getData() == n->getData())
                     return removeFirst();
                 else
                     return false;
             }
             Node<T> *node = head;
-            while(node->link->getData() != val)
+            while(node->link != n)
                 node = node->link;
-            Node<T> *aid = node->link;
-            node->link = 0;
-            delete aid;
+            node->link = n->link;
+            delete n;
             length--;
             return true;
         }
