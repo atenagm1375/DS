@@ -34,13 +34,12 @@ template <class T> class SimpleLinkedList{
             length++;
         }
 
-        void insert(T prev, T val){
+        void insert(Node<T> *prev, Node<T> *val){
             Node<T> *node = head;
-            while(node->getData() != prev)
+            while(node != prev)
                 node = node->link;
-            Node<T> *newNode = getNode(val);
-            newNode->link = node->link;
-            node->link = newNode;
+            val->link = node->link;
+            node->link = val;
             length++;
         }
 
