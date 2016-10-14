@@ -14,40 +14,39 @@ template<class T> class Deque{
         Deque(int l){
             max_length = l;
             deque = new T[max_length];
-            head = tail = 0;
+            head = tail = -1;
         }
 
-        void insertFront(T& val){
-            //cout << "INSERT FRONT:" << endl;
-            //cout << head << " " << tail << endl;
-            int i = head;
-            if(head < 0){
-                head = max_length - 1;
-                tail++;
-                i = 0;
+        void insertFront(T val){
+            cout << "INSERT FRONT:" << endl;
+            cout << head << " " << tail << endl;
+            if(tail == max_length - 1){
+                if(head == -1){
+                    cout << "Deque is full" << endl;
+                    return;
+                }
             }
             else
-                head--;
-            if(head == tail){
-                cout << "Deque is full" << endl;
-                return;
+                tail++;
+            for(int i = tail; i >= head; i--){
+                    deque[i + 1] = deque[i];
             }
-            deque[i] = val;
-            //cout << head << " " << tail << endl;
+            deque[head + 1] = val;
+            cout << head << " " << tail << endl;
         }
 
-        void insertLast(T& val){
-            //cout << "INSERT LAST:" << endl;
-            //cout << head << " " << tail << endl;
-            if(tail == max_length - 1)
-                tail = 0;
+        void insertLast(T val){
+            cout << "INSERT LAST:" << endl;
+            cout << head << " " << tail << endl;
+            if(tail == max_length - 1){
+                if(head == -1){
+                    cout << "Deque is full" << endl;
+                    return;
+                }
+            }
             else
                 tail++;
-            //cout << head << " " << tail << endl;
-            if(head == tail){
-                cout << "Deque is full" << endl;
-                return;
-            }
+            cout << head << " " << tail << endl;
             deque[tail] = val;
         }
 
@@ -59,10 +58,10 @@ template<class T> class Deque{
                 return 0;
             }
             //cout << head << " " << tail << endl;
-            if(head == max_length - 1)
-                head = 0;
-            else
-                head++;
+            int a = deque[head];
+            for(int i = head + 1; i <= tail; i++)
+                deque[i - 1] = deque[i];
+            tail--;
             //cout << head << " " << tail << endl;
             return deque[head];
         }
@@ -74,17 +73,8 @@ template<class T> class Deque{
                 cout << "Deque is empty" << endl;
                 return 0;
             }
-            //cout << head << " " << tail << endl;
-            if(tail == 0){
-                tail = max_length - 1;
-                //cout << head << " " << tail << endl;
-                return deque[0];
-            }
-            else{
-                tail--;
-                //cout << head << " " << tail << endl;
-                return deque[tail + 1];
-            }
+            tail--;
+            return deque[tail + 1];
         }
 
         bool empty(){
@@ -102,8 +92,16 @@ template<class T> class Deque{
 
 int main(){
     Deque<int> D(10);
-    for(int i = 0; i < 5; i++)
-        D.insertFront(i);
+    D.insertLast(1);
+    D.insertFront(2);
+    D.insertLast(3);
+    D.insertFront(4);
+    D.insertLast(5);
+    D.insertFront(6);
+    D.insertLast(7);
+    D.insertFront(8);
+    D.insertLast(9);
+    D.insertFront(10);
     while(!D.empty())
         cout << D.removeFirst() << " ";
     return 0;
