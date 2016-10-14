@@ -14,7 +14,7 @@ template<class T> class Deque{
 
         Deque() { }
 
-        void insertFirst(T& val){
+        void insertFirst(T val){
             while(!s1.empty()){
                 s2.push(s1.top());
                 s1.pop();
@@ -26,7 +26,7 @@ template<class T> class Deque{
             }
         }
 
-        void insertLast(T& val){
+        void insertLast(T val){
             s1.push(val);
         }
 

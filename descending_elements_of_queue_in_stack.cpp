@@ -2,7 +2,8 @@
 
 /* This program is to put elements of a queue in a stack with descending order without
  * using any other data structure. To do so, while front element of the queue is bigger
- * top element of the stack, we enqueue the elements of stack in the queue.
+ * top element of the stack, we enqueue the elements of stack in the queue. While printing,
+ * obviously the elements will be ascending.
  */
 
 #include <iostream>

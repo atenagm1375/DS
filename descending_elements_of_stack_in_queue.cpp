@@ -15,21 +15,29 @@ using namespace std;
 template<class T> queue<T> sort(stack<T> S){
     queue<T> ans;
     while(!S.empty()){
-        ans.push(S.top());
-        while(ans.front() < S.top()){
-            ans.push(ans.front());
-            ans.pop();
-        }
+    	int min = S.top();
         S.pop();
-
+        while(!S.empty() && S.top() >= min){
+        	ans.push(S.top());
+        	while(!ans.empty() && S.top() > ans.front()){
+        		ans.push(ans.front());
+        		ans.pop();
+        	}
+        	S.pop();
+        }
+        ans.push(min);
     }
     return ans;
 }
 
 int main(){
     stack<int> S;
-    for(int i = 10; i >= 1; i--)
-        S.push(i);
+    S.push(-3);
+    S.push(4);
+    S.push(-1);
+    S.push(6);
+    S.push(1);
+    S.push(5);
     queue<int> ans = sort(S);
     while(!ans.empty()){
         cout << ans.front() << " ";
