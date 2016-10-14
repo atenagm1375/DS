@@ -18,35 +18,35 @@ template<class T> class Deque{
         }
 
         void insertFront(T val){
-            cout << "INSERT FRONT:" << endl;
-            cout << head << " " << tail << endl;
+            //cout << "INSERT FRONT:" << endl;
+            //cout << head << " " << tail << endl;
+            if(empty()){
+                insertLast(val);
+                return;
+            }
             if(tail == max_length - 1){
-                if(head == -1){
-                    cout << "Deque is full" << endl;
-                    return;
-                }
+                cout << "Deque is full" << endl;
+                return;
             }
             else
                 tail++;
-            for(int i = tail; i >= head; i--){
+            for(int i = tail - 1; i > head; i--){
                     deque[i + 1] = deque[i];
             }
             deque[head + 1] = val;
-            cout << head << " " << tail << endl;
+            //cout << head << " " << tail << endl;
         }
 
         void insertLast(T val){
-            cout << "INSERT LAST:" << endl;
-            cout << head << " " << tail << endl;
+            //cout << "INSERT LAST:" << endl;
+            //cout << head << " " << tail << endl;
             if(tail == max_length - 1){
-                if(head == -1){
-                    cout << "Deque is full" << endl;
-                    return;
-                }
+                cout << "Deque is full" << endl;
+                return;
             }
             else
                 tail++;
-            cout << head << " " << tail << endl;
+            //cout << head << " " << tail << endl;
             deque[tail] = val;
         }
 
@@ -58,12 +58,12 @@ template<class T> class Deque{
                 return 0;
             }
             //cout << head << " " << tail << endl;
-            int a = deque[head];
-            for(int i = head + 1; i <= tail; i++)
+            int a = deque[head + 1];
+            for(int i = head + 2; i <= tail; i++)
                 deque[i - 1] = deque[i];
             tail--;
             //cout << head << " " << tail << endl;
-            return deque[head];
+            return a;
         }
 
         T removeLast(){
