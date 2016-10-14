@@ -18,12 +18,17 @@ template<class T> queue<T> sort(stack<T> S){
     	int min = S.top();
         S.pop();
         while(!S.empty() && S.top() >= min){
-        	ans.push(S.top());
-        	while(!ans.empty() && S.top() > ans.front()){
+            int aid = S.top();
+            S.pop();
+        	while(ans.front() > aid){
+                ans.push(ans.front());
+                ans.pop();
+            }
+            ans.push(aid);
+        	while(aid >= ans.front()){
         		ans.push(ans.front());
         		ans.pop();
         	}
-        	S.pop();
         }
         ans.push(min);
     }
@@ -32,10 +37,10 @@ template<class T> queue<T> sort(stack<T> S){
 
 int main(){
     stack<int> S;
-    S.push(-3);
-    S.push(4);
     S.push(-1);
-    S.push(6);
+    S.push(2);
+    S.push(-3);
+    S.push(-1);
     S.push(1);
     S.push(5);
     queue<int> ans = sort(S);
