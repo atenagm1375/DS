@@ -91,17 +91,14 @@ template<class T> class Deque{
 };
 
 int main(){
-    Deque<int> D(10);
+    Deque<int> D(5);
     D.insertLast(1);
-    D.insertFront(2);
     D.insertLast(3);
-    D.insertFront(4);
     D.insertLast(5);
-    D.insertFront(6);
     D.insertLast(7);
-    D.insertFront(8);
     D.insertLast(9);
-    D.insertFront(10);
+    D.removeFirst();
+    D.insertLast(2);
     while(!D.empty())
         cout << D.removeFirst() << " ";
     return 0;
