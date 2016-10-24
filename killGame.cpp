@@ -15,13 +15,15 @@ string killGame(string name[], int n, int interval){
     for(int i = 0; i < n - 1; i++)
         next[i] = i + 1;
     next[n - 1] = 0;
-    int remainers = n, i = n - 1, j = 0;
+    int remainers = n, i = 0, j = n - 1;
     while(remainers != 1){
+        cout << i << " " << next[i] << endl;
         for(int k = 0; k < interval; k++){
             i = j;
             j = next[j];
         }
         next[i] = next[j];
+        j = i;
         remainers--;
     }
     return name[i];
