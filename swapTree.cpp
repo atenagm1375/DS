@@ -6,9 +6,11 @@
 using namespace std;
 
 template<class T> void swapTree(Node<T> *r){
-    Node<T> *temp = r->left;
-    r->left = r->right;
-    r->right = temp;
-    swapTree(r->left);
-    swapTree(r->right);
+	if(T != 0){
+    	Node<T> *temp = r->left;
+    	r->left = r->right;
+    	r->right = temp;
+    	swapTree(r->left);
+    	swapTree(r->right);
+    }
 }
