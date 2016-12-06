@@ -6,6 +6,39 @@
 
 using namespace std;
 
+class connectedComponent{
+public:
+    connectedComponent(int n){
+        parent = new int[n + 1];
+        rank = new int[n + 1];
+        for(int i = 0; i <= n; i++){
+            parent[i] = i;
+            rank[i] = 0;
+        }
+    }
+
+    int find(int v){
+        if(v != parent[v])
+            parent[v] = find(parent[v]);
+        return parent[v];
+    }
+
+    void connect(int u, int v){
+        u = find(u);
+        v = find(v);
+        if(rank[u] > rank[v])
+            parent[v] = u;
+        else
+            parent[u] = v;
+        if(rank[u] == rank[v])
+            rank[v]++;
+    }
+
+private:
+    int *parent;
+    int *rank;
+};
+
 struct Edge{
     int u;
     int v;
@@ -31,35 +64,22 @@ public:
         graph.push_back(e);
     }
 
-    Edge *kruskal(){
+    int kruskal(){
         sort(graph.begin(), graph.end(), comp);
-        Edge *ans = new Edge[V];
-        vector< vector<int> > connected;
-        int u = 0;
-        int i = 0;
-        while(i < E){
-            bool t = true, f = true, mark = false;
-            int x = 0;
-            for(; x < connected.size(); x++){
-                cout << "hi" << endl;
-                for(int y = 0; y < connected[x].size(); y++){
-                    cout << "bye" << endl;
-                    if(connected[x][y] == graph[i].v)
-                        t = false;
-                    if(connected[x][y] == graph[i].u)
-                        f = false;
-                }
+        int w = 0;
+        connectedComponent cc(V);
+        for(int i = 0; i < E; i++){
+            int u = graph[i].u;
+            int v = graph[i].v;
+            int ccu = cc.find(u);
+            int ccv = cc.find(v);
+            if(ccv != ccu){
+                cc.connect(ccu, ccv);
+                w += graph[i].weight;
+                cout << u << "<-->" << v << " " << graph[i].weight << endl;
             }
-            if(t || f){
-                ans[u++] = graph[i];
-                if(t)
-                    connected[x].push_back(graph[i].u);
-                if(f)
-                    connected[x].push_back(graph[i].v);
-            }
-            i++;
         }
-        return ans;
+        return w;
     }
 
 private:
@@ -79,8 +99,7 @@ int main(){
         cin >> u >> v >> w;
         g.addEdge(u, v, w);
     }
-    Edge *ans = g.kruskal();
-    for(int i = 0; i < V; i++)
-        cout << ans[i].u << "-->" << ans[i].v << " " << ans[i].weight << endl;
+    int ans = g.kruskal();
+    cout << "MST weight: " << ans << endl;
     return 0;
 }
