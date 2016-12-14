@@ -1,7 +1,7 @@
 //Ashena Gorgan Mohammadi, 610394128
 
 import java.util.Scanner;
-
+import java.util.Stack;
 
 public class maximumRectangle{
 
@@ -43,37 +43,78 @@ class findRect{
             colHeight();
     }
 
-    private int findAns(sizeColor[] sc){
-        return 0;
+    private int[] findAns(int[] sc){
+        Stack<Integer> s = new Stack<Integer>();
+        int maxArea = 0;
+        int top = 0;
+        int curArea = 0;
+        int i = 0, x1 = 0, x2 = 0;
+        while(i < m){
+            if(s.empty() || sc[i] >= sc[(int)s.peek()]){
+                s.push(i++);
+            }
+            else{
+                top = (int)s.pop();
+                curArea = sc[top] * (s.empty() ? i : i - (int)s.peek() - 1);
+                if(curArea > maxArea){
+                    maxArea = curArea;
+                    x1 = top;
+                    x2 = i;
+                }
+            }
+        }
+        while(!s.empty()){
+            top = (int)s.pop();
+            curArea = sc[top] * (s.empty() ? i : i - (int)s.peek() - 1);
+            if(curArea > maxArea){
+                maxArea = curArea;
+                x1 = top;
+                x2 = i;
+            }
+        }
+        int[] ans = {maxArea, x1, x2};
+        return ans;
     }
 
     private void colHeight(){
-        sizeColor[][] sc = new sizeColor[n][m];
+        int[][] hw = new int[n][m];
+        int[][] hb = new int[n][m];
         for(int i = 0; i < n; i++)
             for(int j = 0; j < m; j++){
-                if(i > 0 && pattern[i - 1][j] == pattern[i][j])
-                    sc[i][j] = new sizeColor(sc[i-1][j].val + 1, pattern[i][j]);
+                if(i > 0 && pattern[i][j] == 'w')
+                    hw[i][j] = hw[i - 1][j] + 1;
+                else if(i > 0 && pattern[i][j] == 'b')
+                    hb[i][j] = hb[i - 1][j] + 1;
+                else if(pattern[i][j] == 'w')
+                    hw[i][j] = 1;
                 else
-                    sc[i][j] = new sizeColor(1, pattern[i][j]);
+                    hb[i][j] = 1;
             }
         int maxArea = 0, index = n - 1;
+        boolean isBlack = false;
         for(int i = n - 1; i >= 0; i--){
-            int ans = findAns(sc[i]);
-            if(ans > maxArea){
-                maxArea = ans;
+            int[] ans = findAns(hw[i]);
+            if(ans[0] > maxArea){
+                maxArea = ans[0];
                 index = i;
+                start = ans[1];
+                end = ans[2];
             }
         }
-    }
-}
-
-class sizeColor{
-
-    public int val;
-    public char color;
-
-    public sizeColor(int a, char c){
-        val = a;
-        color = c;
+        for(int i = n - 1; i >= 0; i--){
+            int[] ans = findAns(hb[i]);
+            if(ans[0] > maxArea){
+                isBlack = true;
+                maxArea = ans[0];
+                index = i;
+                start = ans[1];
+                end = ans[2];
+            }
+        }
+        int y = index - maxArea / (end - start) + 1;
+        System.out.println("The area of the maximal rectangle is " + maxArea);
+        System.out.println("The maximal rectangle starts at (" + start + ", " + y + ") and ends at (" + (end - 1) + ", " + index + ")");
+        System.out.print("The color of this rectangle is ");
+        System.out.println(isBlack ? "black" : "white");
     }
 }
