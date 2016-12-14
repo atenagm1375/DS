@@ -28,6 +28,8 @@ class findRect{
     private int m;
     private char[][] pattern;
     private int[] area;
+    private int start;
+    private int end;
 
     public findRect(int n, int m, char[][] pat){
         this.n = n;
@@ -36,6 +38,32 @@ class findRect{
         for(int i = 0; i < n; i++)
             for(int j = 0; j < m; j++)
                 pattern[i][j] = pat[i][j];
+            start = 0;
+            end = 0;
+            colHeight();
+    }
+
+    private int findAns(sizeColor[] sc){
+        return 0;
+    }
+
+    private void colHeight(){
+        sizeColor[][] sc = new sizeColor[n][m];
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < m; j++){
+                if(i > 0 && pattern[i - 1][j] == pattern[i][j])
+                    sc[i][j] = new sizeColor(sc[i-1][j].val + 1, pattern[i][j]);
+                else
+                    sc[i][j] = new sizeColor(1, pattern[i][j]);
+            }
+        int maxArea = 0, index = n - 1;
+        for(int i = n - 1; i >= 0; i--){
+            int ans = findAns(sc[i]);
+            if(ans > maxArea){
+                maxArea = ans;
+                index = i;
+            }
+        }
     }
 }
 
