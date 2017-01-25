@@ -37,8 +37,11 @@ public class kFormula{
             System.out.println();
             hm.remove(s);
             it = hm.keySet().iterator();
-            if(it.hasNext())
+            if(it.hasNext()){
                 s = (String) it.next();
+                while(kformula.indexOf(s) == -1)
+                    s = (String) it.next();
+            }
         }
         System.out.println(kformula);
     }
