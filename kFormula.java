@@ -31,7 +31,6 @@ public class kFormula{
                 kformula.deleteCharAt(i);
                 kformula.insert(i, "*" + s + hm.get(s).get(0));
                 System.out.println(kformula);
-                //kformula.replce(kformula.indexOf(s), kformula.indexOf(s) + 1, "*" + s + hm.get(s).get(0));
                 hm.get(s).remove(0);
             }
             System.out.println();
@@ -46,6 +45,18 @@ public class kFormula{
         System.out.println(kformula);
     }
 
+    public static void generate_graph(Scanner scan){
+        StringBuffer kformula = new StringBuffer(scan.next());
+        for(int i = kformula.length() - 1; i >= 0; i--){
+            while(kformula.charAt(i) != '*')
+                i--;
+            System.out.println(kformula.charAt(i + 1) + "-->" + kformula.charAt(i + 2));
+            char c = kformula.charAt(i + 1);
+            kformula.delete(i, i + 3);
+            kformula.insert(i, c);
+        }
+    }
+
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
         int choice;
@@ -56,8 +67,8 @@ public class kFormula{
             choice = scan.nextInt();
             if(choice == 1)
                 generate_kformula(scan);
-            //else if(choice == 2)
-              //  generate_graph(scan);
+            else if(choice == 2)
+                generate_graph(scan);
         }while(choice == 1 || choice == 2);
    }
 }
