@@ -6,9 +6,7 @@ public class Pert{
 
     public static void main(String[] args){
         pertGraph pg = new pertGraph();
-        int[] ans = pg.criticalPath();
-        for(int i = 0; i < pg.V; i++)
-            System.out.println(ans[i]);
+        pg.criticalPath();
     }
 }
 
@@ -37,26 +35,15 @@ class pertGraph{
             graph[scan.nextInt()][scan.nextInt()] = scan.nextInt();
     }
 
-    public int[] criticalPath(){
-        int[] path = new int[V];
-        path[0] = start;
-        path[V - 1] = end;
+    public void criticalPath(){
         TE = new int[V];
         TL = new int[V];
         TE[start] = 0;
         findTE(start);
         TL[end] = TE[end];
         findTL(end);
-        for(int i = start, j = i + 1, k = 1; i != end; i = j)
-            for( ; j != end; j++){
-                if(TE[j] == TL[j]){
-                    path[k++] = j;
-                    break;
-                }
-                if(j == V - 1 && j != end)
-                    j = -1;
-            }
-        return path;
+        printTE();
+        printTL();
     }
 
     private void findTE(int i){
@@ -68,6 +55,14 @@ class pertGraph{
             }
     }
 
+    private void printTE(){
+        System.out.println("----------------------------------");
+        System.out.println("TE:"+'\n');
+        for(int i = 0; i < V; i++)
+            System.out.println(i + " : " + TE[i]);
+        System.out.println("----------------------------------");
+    }
+
     private void findTL(int i){
         for(int j = 0; j < V; j++)
             if(graph[j][i] != 0){
@@ -76,4 +71,13 @@ class pertGraph{
                 findTL(j);
             }
     }
+
+    private void printTL(){
+        System.out.println("----------------------------------");
+        System.out.println("TL:"+'\n');
+        for(int i = 0; i < V; i++)
+            System.out.println(i + " : " + TL[i]);
+        System.out.println("----------------------------------");
+    }
+
 }
