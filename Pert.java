@@ -1,6 +1,6 @@
 //Ashena G.Mohammadi, 610394128
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Pert{
 
@@ -19,6 +19,7 @@ class pertGraph{
     public int[][] graph;
     private int[] TE;
     private int[] TL;
+    private ArrayList<Integer> path;
 
     public pertGraph(){
         Scanner scan = new Scanner(System.in);
@@ -26,7 +27,7 @@ class pertGraph{
         V = scan.nextInt();
         System.out.println("Enter number of project's tasks:");
         E = scan.nextInt();
-        System.out.println("Enter start and end states in order:");
+        System.out.println("Enter start and end states in order(states are numbered from 0 to STATES-1):");
         start = scan.nextInt();
         end = scan.nextInt();
         System.out.println("Enter time of each task between the two states:(0 1 3 means task between states 0 and 1 takes 3 days)");
@@ -44,6 +45,29 @@ class pertGraph{
         findTL(end);
         printTE();
         printTL();
+        path = new ArrayList<Integer>();
+        path.add(new Integer(start));
+        System.out.println("----------------------------------" + '\n');
+        System.out.println("Critical Path(s):");
+        System.out.println("----------------------------------");
+        printPath(start);
+    }
+
+    public void printPath(int state){
+        if(state == end){
+            for(int i = 0; i < path.size(); i++){
+                System.out.print(path.get(i));
+                if(i != path.size() - 1)
+                    System.out.print("--" + graph[path.get(i)][path.get(i + 1)] + "-->");
+            }
+            System.out.println('\n' + "----------------------------------");
+        }
+        for(int i = 0; i < V; i++)
+            if(graph[state][i] != 0 && TE[i] == TL[i]){
+                path.add(new Integer(i));
+                printPath(i);
+                path.remove(path.size() - 1);
+            }
     }
 
     private void findTE(int i){
