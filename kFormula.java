@@ -25,15 +25,12 @@ public class kFormula{
         hm.get(s).remove(0);
         while(!hm.isEmpty()){
             int i = kformula.indexOf(s);
-            System.out.println(i);
             while(i >= 0 && !hm.get(s).isEmpty()){
                 i = kformula.indexOf(s);
                 kformula.deleteCharAt(i);
                 kformula.insert(i, "*" + s + hm.get(s).get(0));
-                System.out.println(kformula);
                 hm.get(s).remove(0);
             }
-            System.out.println();
             hm.remove(s);
             it = hm.keySet().iterator();
             if(it.hasNext()){
@@ -42,11 +39,12 @@ public class kFormula{
                     s = (String) it.next();
             }
         }
-        System.out.println(kformula);
+        System.out.println("k-formula: " + kformula);
     }
 
     public static void generate_graph(Scanner scan){
         StringBuffer kformula = new StringBuffer(scan.next());
+        System.out.println("Vertices of the graph:");
         for(int i = kformula.length() - 1; i >= 0; i--){
             while(kformula.charAt(i) != '*')
                 i--;
