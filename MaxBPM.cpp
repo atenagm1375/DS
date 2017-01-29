@@ -16,42 +16,28 @@ public:
         cout << "Enter number of edges:" << endl;
         cin >> E;
         cout << "Enter connected vertices:" << endl;
-        graph = new vector<int>[V];
+        graph = new int *[V];
+        for(int i = 0; i < V; i++)
+            graph[i] = new int[V];
         for(int i = 0; i < E; i++){
             int a, b;
             cin >> a >> b;
-            graph[a].push_back(b);
-            graph[b].push_back(a);
+            graph[a][b] = 1;
+            graph[b][a] = 1;
         }
         state = new int[V];
-        for(int i = 1; i < V; i++)
+        for(int i = 0; i < V; i++)
             state[i] = -1;
-        state[0] = 1;
     }
 
     bool isBipartite(){
-        queue<int> Q;
-        Q.push(0);
-        while(!Q.empty()){
-            int u = Q.front();
-            Q.pop();
-            for(int v = 0; v < V; v++){
-                if(find(graph[u].begin(), graph[u].end(), v) != graph[u].end() && state[v] == -1){
-                    state[v] = 1 - state[u];
-                    Q.push(v);
-                }
-                else if(find(graph[u].begin(), graph[u].end(), v) != graph[u].end() && state[v] == state[u])
-                    return false;
-            }
-        }
+        for(int i = 0; i < V; i++)
+            if(state[i] == -1 && !bp(i))
+                return false;
         return true;
     }
 
     void findMax(){
-        state1 = 0;
-        for(int i = 0; i < V; i++)
-            if(state[i] == 1)
-                state1++;
         match = new int[V];
         for(int i = 0; i < V; i++)
             match[i] = -1;
@@ -59,6 +45,7 @@ public:
             bool *visited = new bool[V];
             bpm(visited, i);
         }
+        cout << "The maximum matching bipartite graph is:" << endl;
         for(int i = 0; i < V; i++)
             if(match[i] != -1)
                 cout << i << "--->" << match[i] << endl;
@@ -66,7 +53,7 @@ public:
 
     bool bpm(bool *visited, int u){
         for(int v = 0; v < V; v++)
-            if(state[u] != state[v] && find(graph[u].begin(), graph[u].end(), v) != graph[u].end() && !visited[v]){
+            if(state[u] == 0 && graph[u][v] && !visited[v]){
                 visited[v] = true;
                 if(match[v] == -1 || bpm(visited, v)){
                     match[v] = u;
@@ -80,10 +67,29 @@ private:
 
     int V;
     int E;
-    vector<int> *graph;
+    int **graph;
     int *state;
-    int state1;
     int *match;
+
+    bool bp(int w){
+        state[w] = 1;
+        queue<int> Q;
+        Q.push(w);
+        while(!Q.empty()){
+            int u = Q.front();
+            Q.pop();
+            for(int v = 0; v < V; v++){
+                if(graph[u][v] && state[v] == -1){
+                    state[v] = 1 - state[u];
+                    Q.push(v);
+                }
+                else if(graph[u][v] && state[v] == state[u])
+                    return false;
+            }
+        }
+        return true;
+    }
+
 };
 
 int main(){
