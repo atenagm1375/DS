@@ -48,7 +48,7 @@ public:
         cout << "The maximum matching bipartite graph is:" << endl;
         for(int i = 0; i < V; i++)
             if(match[i] != -1)
-                cout << i << "--->" << match[i] << endl;
+                cout << i << "---->" << match[i] << endl;
     }
 
     bool bpm(bool *visited, int u){
