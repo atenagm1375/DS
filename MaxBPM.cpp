@@ -55,7 +55,7 @@ public:
         for(int v = 0; v < V; v++)
             if(state[u] == 0 && graph[u][v] && !visited[v]){
                 visited[v] = true;
-                if(match[v] == -1 || bpm(visited, v)){
+                if(match[v] == -1 || bpm(visited, match[v])){
                     match[v] = u;
                     return true;
                 }
