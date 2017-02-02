@@ -1,16 +1,27 @@
 //Ashena G.Mohammadi, 610394128
 
-import java.util.Scanner;
+/* This is one of the projects for Data Structure course 2016-2017.
+ * It is going to get either specifications of a graph and print out the
+ * its k-formula or get the k-formula and print out the specifications of
+ * the graph.
+ */
+
 import java.util.*;
 import java.lang.StringBuffer;
 
 public class kFormula{
 
+    //reads in the graph specifications and prints out the k-formula
     public static void generate_kformula(Scanner scan){
         System.out.println("Enter number of edges:");
-        int E = scan.nextInt();
+        int E = scan.nextInt(); //number of edges
+
         System.out.println("Enter connected vertices(as a b meaning a directed edge from a to b):");
-        HashMap<String, ArrayList<String>> hm = new HashMap<String, ArrayList<String>>();
+        HashMap<String, ArrayList<String>> hm = new HashMap<String, ArrayList<String>>(); //graph's specification as an adjacency list
+
+        /* reads in the specifications and adds the ending vertex to
+         * to the list of starting vertex
+         */
         for(int i = 0; i < E; i++){
             String u = scan.next();
             String w = scan.next();
@@ -18,11 +29,16 @@ public class kFormula{
                 hm.put(u, new ArrayList<String>());
             hm.get(u).add(w);
         }
-        StringBuffer kformula = new StringBuffer();
-        Iterator it = hm.keySet().iterator();
-        String s = (String) it.next();
+
+        StringBuffer kformula = new StringBuffer(); //holder of k-formula
+        Iterator it = hm.keySet().iterator(); //iterator over the graph adjacency list
+        String s = (String) it.next(); //first edge of the graph
         kformula.append("*" + s + hm.get(s).get(0));
         hm.get(s).remove(0);
+        /* after adding each edge to the k-formula, it is removed from the
+         * adjacency list of the graph so that searching for substitutions
+         * would be easier
+         */
         while(!hm.isEmpty()){
             int i = kformula.indexOf(s);
             while(i >= 0 && !hm.get(s).isEmpty()){
@@ -42,9 +58,13 @@ public class kFormula{
         System.out.println("k-formula: " + kformula);
     }
 
+    //reads in the k-formula and prints the edges of the graph
     public static void generate_graph(Scanner scan){
-        StringBuffer kformula = new StringBuffer(scan.next());
+        StringBuffer kformula = new StringBuffer(scan.next()); //k-formula holder
         System.out.println("Vertices of the graph:");
+        /* starting from the end of the k-formula string, regreting *s,
+         * the two vertices are connected
+         */
         for(int i = kformula.length() - 1; i >= 0; i--){
             while(kformula.charAt(i) != '*')
                 i--;
