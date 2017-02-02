@@ -1,5 +1,9 @@
 //Ashena G.Mohammadi, 610394128
 
+/* This is one of the projects for Data Structure course 2016-2017.
+ * It is asked to implement project handling using PERT graph.
+ */
+
 import java.util.*;
 
 public class Pert{
@@ -12,24 +16,27 @@ public class Pert{
 
 class pertGraph{
 
-    public int V;
-    public int E;
-    public int start;
-    public int end;
-    public int[][] graph;
-    private int[] TE;
-    private int[] TL;
-    private ArrayList<Integer> path;
+    public int V; //number of vertices(states)
+    public int E; //number of edges(tasks)
+    public int start; //start state of the project
+    public int end; //end state of the project
+    public int[][] graph; //pert graph adjacency matrix
+    private int[] TE; //TE holder
+    private int[] TL; // TL holder
+    private ArrayList<Integer> path; //critical path holder
 
     public pertGraph(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter number of states you have in the project:");
         V = scan.nextInt();
+
         System.out.println("Enter number of project's tasks:");
         E = scan.nextInt();
+
         System.out.println("Enter start and end states in order(states are numbered from 0 to STATES-1):");
         start = scan.nextInt();
         end = scan.nextInt();
+
         System.out.println("Enter time of each task between the two states:(0 1 3 means task between states 0 and 1 takes 3 days)");
         graph = new int[V][V];
         for(int i = 0; i < E; i++)
@@ -53,6 +60,10 @@ class pertGraph{
         printPath(start);
     }
 
+    /* critical paths are calculated and printed in this function.
+     * starting from the start state, all the states with same TE and TL
+     * are contained in a critical path. This is implemented using dfs.
+     */
     public void printPath(int state){
         if(state == end){
             for(int i = 0; i < path.size(); i++){
@@ -70,6 +81,8 @@ class pertGraph{
             }
     }
 
+    /* This function finds TE of all vertices using dfs.
+     */
     private void findTE(int i){
         for(int j = 0; j < V; j++)
             if(graph[i][j] != 0){
@@ -87,6 +100,8 @@ class pertGraph{
         System.out.println("----------------------------------");
     }
 
+    /* This function finds TL of all vertices using dfs.
+     */
     private void findTL(int i){
         for(int j = 0; j < V; j++)
             if(graph[j][i] != 0){
