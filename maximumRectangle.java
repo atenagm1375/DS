@@ -1,5 +1,10 @@
 //Ashena Gorgan Mohammadi, 610394128
 
+/* This is one of the projects for Data Structure course 2016-2017.
+ * It calculates the maximal rectangle with one color in a rectangle 
+ * with colored pixels of black and white.
+ */
+
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -24,12 +29,11 @@ public class maximumRectangle{
 
 class findRect{
 
-    private int n;
-    private int m;
-    private char[][] pattern;
-    private int[] area;
-    private int start;
-    private int end;
+    private int n; //number of rows
+    private int m; //number of columns
+    private char[][] pattern; //the main rectangle
+    private int start; //start point of the answer rectangle
+    private int end; //end point of the answer rectangle
 
     public findRect(int n, int m, char[][] pat){
         this.n = n;
@@ -43,6 +47,7 @@ class findRect{
             colHeight();
     }
 
+    //finds maximum rectangular area for each histogram
     private int[] findAns(int[] sc){
         Stack<Integer> s = new Stack<Integer>();
         int maxArea = 0;
@@ -76,9 +81,12 @@ class findRect{
         return ans;
     }
 
+    /* finds the answer by finding the area under histograms and the 
+     * calculating the maximum rectangular area using area of the histograms
+     */
     private void colHeight(){
-        int[][] hw = new int[n][m];
-        int[][] hb = new int[n][m];
+        int[][] hw = new int[n][m]; //white histograms
+        int[][] hb = new int[n][m]; //black histograms
         for(int i = 0; i < n; i++)
             for(int j = 0; j < m; j++){
                 if(i > 0 && pattern[i][j] == 'w')
