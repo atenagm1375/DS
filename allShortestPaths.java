@@ -1,6 +1,6 @@
 // Ashena Gorgan Mohammadi, 610394128
 
-/* This is one of the projects for data structure course autumn-2016.
+/* This is one of the projects for Data Dtructure course 2016-2017.
  * The task is to find the shortest path between each two vertices in a directed
  * graph and print that path.
  */
@@ -10,10 +10,10 @@ import java.util.Scanner;
 public class allShortestPaths{
 
     public static Scanner scan = new Scanner(System.in);
-    public static int v;
-    public static int[] d;
-    public static boolean[] included;
-    public static int[] parent;
+    public static int v; //number of vertices
+    public static int[] d; //distance handler
+    public static boolean[] included; //shows if the vertex is in the answer or not
+    public static int[] parent; //holds parent of each vertex
 
     public static int[][] createGraph(){
         int[][] graph = new int[v][v];
@@ -31,6 +31,7 @@ public class allShortestPaths{
         return graph;
     }
 
+    //returns the vertex with minimum distance
     public static int minIndex(){
         int min = Integer.MAX_VALUE, i = -1;
         for(int u = 0; u < v; u++){
@@ -60,6 +61,7 @@ public class allShortestPaths{
             }
     }
 
+    //The main dijkstra algorithm for all vertices
     public static void dijkstra(int[][] graph, int u){
         d = new int[v];
         included = new boolean[v];
